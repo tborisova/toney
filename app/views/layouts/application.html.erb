@@ -8,6 +8,26 @@
 </head>
 <body>
 
+<% flash.each do |key, value| %>
+  <div class='flash' id='<%= key %>'>
+    <%= value %>
+  </div>
+<% end %>
+
+<% if current_user %>
+  <nav>
+    <ul>
+      <li><%= link_to 'Sign out', destroy_user_session_path, method: :delete%></li>
+    </ul>
+  </nav>
+<% else %>
+  <nav>
+    <ul>
+      <li><%= link_to 'Sign in', new_user_session_path %></li>
+      <li><%= link_to 'Sign up', new_user_registration_path%></li>
+    </ul>
+  </nav>
+<% end %>
 <%= yield %>
 
 </body>

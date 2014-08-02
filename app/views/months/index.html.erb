@@ -1,0 +1,11 @@
+<%unless @months.empty? %>
+  <ul>
+    <% @months.each do |month| %>
+      <li><%= link_to "#{month.start} - #{month.end}", month %></li>
+    <% end %>
+  </ul>
+<% else %>
+  You don't have any months.
+  <br/>
+  <%= link_to 'Create new month', new_month_path %>
+<% end %>

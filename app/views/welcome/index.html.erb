@@ -1,0 +1,8 @@
+<% if current_user %>
+  <nav>
+    <ul>
+      <li><%= link_to 'Create new month', new_month_path %></li>
+      <li><%= link_to 'List your months', months_path %></li>
+    </ul>
+  </nav>
+<% end %>
