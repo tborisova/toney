@@ -1,7 +1,13 @@
 class NotesController < ApplicationController
   before_action :authenticate_user!
-  before_action :load_month, only: [:edit, :show, :update, :destroy, :new, :create]
+  before_action :load_month, only: [:edit, :show, :update, :destroy, :new, :create, :index]
   before_action :load_note, only: [:edit, :show, :update, :destroy]
+
+  def index
+    authorize! :show, @month
+    p 'HERE'
+    @notes = @month.notes
+  end
 
   def new
     authorize! :create, Note
@@ -51,6 +57,15 @@ class NotesController < ApplicationController
 
     def note_params
       params.require(:note).permit(:title, :money)
+    end
+    
+    def load_month
+      begin
+        @month = Month.find(params[:month_id])
+      rescue
+        flash[:alert] = 'Month not found!'
+        redirect_to action: :index
+      end
     end
 
     def load_note

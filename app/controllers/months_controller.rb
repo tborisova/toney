@@ -57,4 +57,14 @@ class MonthsController < ApplicationController
   def month_params
     params.require(:month).permit(:start, :end, :money)
   end
+
+  def load_month
+    begin
+      @month = Month.find(params[:id])
+    rescue
+      flash[:alert] = 'Month not found!'
+      redirect_to action: :index
+    end
+  end
+
 end

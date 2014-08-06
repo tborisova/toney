@@ -1,22 +1,20 @@
-<%= form_for [@month, @note] do |f| %>
-  <% if @note.errors.any? %>
-   <div id="error_explanation">
-     <h2><%= pluralize(@note.errors.count, "error") %>
-     prohibited this note from being saved:</h2>
-     <ul>
-     <% @note.errors.full_messages.each do |msg| %>
-       <li><%= msg %></li>
-     <% end %>
-     </ul>
-   </div>
-  <% end %>
-  <p>
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </p>
-  <p>
-    <%= f.label :money %><br>
-    <%= f.number_field :money %>
-  </p>
-  <%= f.submit %>
+<%= form_for [@month, @note], :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :title, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :title, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :money, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :money, :class => 'number_field', step: :any %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                month_notes_path(@month), :class => 'btn' %>
+  </div>
 <% end %>

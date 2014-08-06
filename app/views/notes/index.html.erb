@@ -1,33 +1,29 @@
-<%- model_class = Month -%>
+<%- model_class = Note -%>
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:user_id) %></th>
-      <th><%= model_class.human_attribute_name(:start) %></th>
-      <th><%= model_class.human_attribute_name(:end) %></th>
+      <th><%= model_class.human_attribute_name(:month_id) %></th>
       <th><%= model_class.human_attribute_name(:money) %></th>
-      <th><%= "Notes" %></th>
+      <th><%= model_class.human_attribute_name(:title) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
-    <% @months.each do |month| %>
+    <% @notes.each do |note| %>
       <tr>
-        <td><%= month.user.email %></td>
-        <td><%= month.start %></td>
-        <td><%= month.end %></td>
-        <td><%= month.money %></td>
-        <td><%= link_to 'Notes', month_notes_path(month)%></td>
-        <td><%=l month.created_at %></td>
+        <td><%= link_to "#{@month.start} - #{@month.end}", @month %></td>
+        <td><%= note.money %></td>
+        <td><%= note.title %></td>
+        <td><%=l note.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_month_path(month), :class => 'btn btn-mini' %>
+                      edit_month_note_path(@month, note), :class => 'btn btn-mini' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      month_path(month),
+                      month_note_path(@month, note),
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-mini btn-danger' %>
@@ -38,5 +34,5 @@
 </table>
 
 <%= link_to t('.new', :default => t("helpers.links.new")),
-            new_month_path,
+            new_month_note_path(@month),
             :class => 'btn btn-primary' %>

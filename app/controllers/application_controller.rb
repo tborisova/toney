@@ -6,13 +6,4 @@ class ApplicationController < ActionController::Base
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url, :alert => exception.message
   end
-
-  def load_month
-    begin
-      @month = Month.find(params[:id])
-    rescue
-      flash[:alert] = 'Month not found!'
-      redirect_to action: :index
-    end
-  end
 end
