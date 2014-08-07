@@ -1,5 +1,5 @@
 <%= form_for @month, :html => { :class => 'form-horizontal' } do |f| %>
-    <% if @month.errors.any? %>
+  <% if @month.errors.any? %>
     <div id="error_explanation">
       <div class="alert alert-error">
         The form contains <%= pluralize(@month.errors.count, "error") %>.
@@ -20,7 +20,7 @@
   <div class="control-group">
     <%= f.label :end, :class => 'control-label' %>
     <div class="controls">
-      <%= f.date_select :end, :class => 'date_select' %>
+      <%= f.date_select :end, :class => 'date_select', :default => 1.month.from_now %>
     </div>
   </div>
   <div class="control-group">
