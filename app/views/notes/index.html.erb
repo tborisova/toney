@@ -18,7 +18,7 @@
         <td><%= link_to "#{@month.start} - #{@month.end}", @month %></td>
         <td><%= note.money %></td>
         <td><%= note.title %></td>
-        <td><%=l note.created_at %></td>
+        <td><%= note.created_at.strftime("%H:%M:%S %d/%m/%y") %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_month_note_path(@month, note), :class => 'btn btn-mini' %>

@@ -22,11 +22,11 @@
         <td><%= month.user.email %></td>
         <td><%= month.start %></td>
         <td><%= month.end %></td>
-        <td><%= month.money %></td>
-        <td><%= month.notes.sum(:money) %></td>
-        <td><%= month.money - month.notes.sum(:money) %></td>
+        <td><%= number_to_currency(month.money, :unit => 'BGN') %></td>
+        <td><%= number_to_currency(month.notes.sum(:money), :unit => 'BGN') %></td>
+        <td><%= number_to_currency(month.money - month.notes.sum(:money), :unit => 'BGN') %></td>
         <td><%= link_to 'Notes', month_notes_path(month)%></td>
-        <td><%= month.created_at %></td>
+        <td><%= month.created_at.strftime("%d/%m/%y") %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_month_path(month), :class => 'btn btn-mini' %>

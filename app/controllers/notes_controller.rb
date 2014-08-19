@@ -5,7 +5,6 @@ class NotesController < ApplicationController
 
   def index
     authorize! :show, @month
-    p 'HERE'
     @notes = @month.notes
   end
 
@@ -27,7 +26,7 @@ class NotesController < ApplicationController
     @note = @month.notes.build(note_params)
     if @note.save
       flash[:notice] = "Note has been created."
-      redirect_to [@month, @note]
+      redirect_to action: :index
     else
       flash[:alert] = "Note has not been created."
       render "new"
