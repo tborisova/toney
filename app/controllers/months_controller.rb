@@ -1,26 +1,20 @@
 class MonthsController < ApplicationController
   before_action :authenticate_user!
-  before_action :load_month, only: [:edit, :show, :update, :destroy]
+  load_and_authorize_resource
 
   def index
-    @months = Month.accessible_by(current_ability)
   end
 
   def new
-    authorize! :create, Month
-    @month = Month.new
   end
 
   def show
-    authorize! :show, @month
   end
 
   def edit
-    authorize! :update, @month
   end
 
   def update
-    authorize! :update, @month
     if @month.update(month_params)
       flash[:notice] = 'Month updated!'
       redirect_to @month    
@@ -31,9 +25,6 @@ class MonthsController < ApplicationController
   end
 
   def create
-    authorize! :create, Month
-
-    @month = Month.new(month_params)
     @month.user = current_user
     if @month.save
       flash[:notice] = 'Month successfully created!'
@@ -45,7 +36,6 @@ class MonthsController < ApplicationController
   end
 
   def destroy
-    authorize! :destroy, @month
     @month.destroy
     flash[:notice] = 'Month destroyed!'
 
@@ -57,14 +47,4 @@ class MonthsController < ApplicationController
   def month_params
     params.require(:month).permit(:start, :end, :money)
   end
-
-  def load_month
-    begin
-      @month = Month.find(params[:id])
-    rescue
-      flash[:alert] = 'Month not found!'
-      redirect_to action: :index
-    end
-  end
-
 end
