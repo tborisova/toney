@@ -44,12 +44,14 @@ gem 'cancancan', '~> 1.9'
 gem "therubyracer"
 gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
 gem "twitter-bootstrap-rails"
+gem 'database_cleaner'
 
 group :test, :development do
   gem 'rspec-rails'
 end
 
 group :test do
+  gem 'shoulda-matchers'
   gem 'capybara'
   gem 'factory_girl_rails'
   gem 'launchy'

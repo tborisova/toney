@@ -4,9 +4,7 @@ class Ability
   def initialize(user)
     if user
         can :manage, Month, user_id: user.id
-        can :manage, Note do |note|
-            user.months.include?(note.month)
-        end
+        can :manage, Note, :month => { :user_id => user.id }
     end
     # Define abilities for the passed in user here. For example:
     #

@@ -2,6 +2,10 @@ class MonthsController < ApplicationController
   before_action :authenticate_user!
   load_and_authorize_resource
 
+  rescue_from ActiveRecord::RecordNotFound do |exception|
+    redirect_to months_url, :alert => 'Month not found!'
+  end
+
   def index
   end
 

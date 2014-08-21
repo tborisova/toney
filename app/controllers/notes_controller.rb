@@ -2,6 +2,10 @@ class NotesController < ApplicationController
   before_action :authenticate_user!
   load_and_authorize_resource :month
   load_and_authorize_resource :note, :through => :month
+
+  rescue_from ActiveRecord::RecordNotFound do |exception|
+    redirect_to months_url, :alert => 'Record not found!'
+  end
   
   def index
     @notes = @month.notes
@@ -38,7 +42,7 @@ class NotesController < ApplicationController
 
   def destroy
     @note.destroy
-    flash[:notice] = "Ticket has been deleted."
+    flash[:notice] = "Note has been deleted."
     
     redirect_to action: :index
   end
