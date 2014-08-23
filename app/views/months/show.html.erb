@@ -11,10 +11,16 @@
   <dt><strong><%= model_class.human_attribute_name(:end) %>:</strong></dt>
   <dd><%= @month.end %></dd>
   <dt><strong><%= model_class.human_attribute_name(:money) %>:</strong></dt>
-  <dd><%= @month.money %></dd>
+  <dd><%= number_to_currency(@month.money, :unit => 'BGN') %></dd>
+  <dt><strong>Used money:</strong></dt>
+  <dd><%= number_to_currency(@month.notes.sum(:money), :unit => 'BGN') %></dd>
+  <dt><strong>Still in acount:</strong></dt>
+  <dd><%= number_to_currency(@month.money - @month.notes.sum(:money), :unit => 'BGN') %></dd>
+
 </dl>
 
 <div class="form-actions">
+  <%= link_to 'Notes', month_notes_path(@month), :class => 'btn'%>
   <%= link_to t('.back', :default => t("helpers.links.back")),
               months_path, :class => 'btn'  %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
