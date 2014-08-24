@@ -93,7 +93,7 @@ RSpec.describe NotesController, :type => :controller do
         context 'month is not found' do
 
           it 'redirects to months index' do
-            expect(Month).to receive(:find).with(month_id).and_raise ActiveRecord::RecordNotFound
+            expect(Month).to receive(:find).with(month_id).and_raise Mongoid::Errors::DocumentNotFound.new(Note, 'Not found')
 
             get :index, month_id: month_id
 
@@ -140,7 +140,7 @@ RSpec.describe NotesController, :type => :controller do
         context 'month is not found' do
 
           it 'redirects to months index' do
-            allow(Month).to receive(:find).with(month_id).and_raise ActiveRecord::RecordNotFound
+            allow(Month).to receive(:find).with(month_id).and_raise Mongoid::Errors::DocumentNotFound.new(Note, 'Not found')
 
             get :new, month_id: month_id
             
@@ -221,7 +221,7 @@ RSpec.describe NotesController, :type => :controller do
         context 'month is not found' do
 
           it 'redirects to months index' do
-            allow(Month).to receive(:find).with(month_id).and_raise ActiveRecord::RecordNotFound
+            allow(Month).to receive(:find).with(month_id).and_raise Mongoid::Errors::DocumentNotFound.new(Note, 'Not found')
 
             get :show, month_id: month_id, id: id
             
@@ -246,7 +246,7 @@ RSpec.describe NotesController, :type => :controller do
             it 'redirects to months index' do
               allow(Month).to receive(:find).with(month_id).and_return month
               allow(month).to receive(:notes).and_return notes
-              allow(notes).to receive(:find).with(id).and_raise ActiveRecord::RecordNotFound
+              allow(notes).to receive(:find).with(id).and_raise Mongoid::Errors::DocumentNotFound.new(Note, 'Not found')
                 
               get :show, month_id: month_id, id: id
 
@@ -326,7 +326,7 @@ RSpec.describe NotesController, :type => :controller do
         context 'month is not found' do
 
           it 'redirects to months index' do
-            expect(Month).to receive(:find).with(month_id).and_raise ActiveRecord::RecordNotFound
+            expect(Month).to receive(:find).with(month_id).and_raise Mongoid::Errors::DocumentNotFound.new(Note, 'Not found')
 
             get :edit, month_id: month_id, id: id
 
@@ -373,7 +373,7 @@ RSpec.describe NotesController, :type => :controller do
             it 'redirects to months index' do
               allow(Month).to receive(:find).with(month_id).and_return month
               allow(month).to receive(:notes).and_return notes
-              allow(notes).to receive(:find).with(id).and_raise ActiveRecord::RecordNotFound
+              allow(notes).to receive(:find).with(id).and_raise Mongoid::Errors::DocumentNotFound.new(Note, 'Not found')
 
               get :edit, month_id: month_id, id: id
 
@@ -440,7 +440,7 @@ RSpec.describe NotesController, :type => :controller do
         context 'month is not found' do
           
           it 'redirects to months index' do
-            allow(Month).to receive(:find).and_raise ActiveRecord::RecordNotFound
+            allow(Month).to receive(:find).and_raise Mongoid::Errors::DocumentNotFound.new(Note, 'Not found')
 
             make_request
 
@@ -562,7 +562,7 @@ RSpec.describe NotesController, :type => :controller do
           
           it 'redirects to months index' do
             
-            allow(Month).to receive(:find).with(month_id).and_raise ActiveRecord::RecordNotFound
+            allow(Month).to receive(:find).with(month_id).and_raise Mongoid::Errors::DocumentNotFound.new(Note, 'Not found')
 
             make_request
 
@@ -580,7 +580,7 @@ RSpec.describe NotesController, :type => :controller do
 
           it 'finds the note from params' do
             allow(month).to receive(:notes).and_return notes # in the double -> notes: notes
-            expect(notes).to receive(:find).with(id).and_raise ActiveRecord::RecordNotFound
+            expect(notes).to receive(:find).with(id).and_raise Mongoid::Errors::DocumentNotFound.new(Note, 'Not found')
 
             make_request
           end
@@ -687,7 +687,7 @@ RSpec.describe NotesController, :type => :controller do
         context 'month is not found' do
 
           it 'redirects to months index' do
-            allow(Month).to receive(:find).with(month_id).and_raise ActiveRecord::RecordNotFound
+            allow(Month).to receive(:find).with(month_id).and_raise Mongoid::Errors::DocumentNotFound.new(Note, 'Not found')
 
             make_request
 

@@ -133,7 +133,7 @@ RSpec.describe MonthsController, :type => :controller do
         context 'month is not found' do
           
           it 'redirects to index action' do
-            allow(Month).to receive(:find).with(id).and_raise ActiveRecord::RecordNotFound
+            allow(Month).to receive(:find).with(id).and_raise Mongoid::Errors::DocumentNotFound.new(Month, 'Not found')
 
             get :show, id: id
 
@@ -200,7 +200,7 @@ RSpec.describe MonthsController, :type => :controller do
         context 'month is not found' do
           
           it 'redirects to index action' do
-            allow(Month).to receive(:find).with(id).and_raise ActiveRecord::RecordNotFound
+            allow(Month).to receive(:find).with(id).and_raise Mongoid::Errors::DocumentNotFound.new(Month, 'Not found')
 
             get :edit, id: id
 
@@ -354,7 +354,7 @@ RSpec.describe MonthsController, :type => :controller do
 
         it 'finds month object by params' do
 
-          expect(Month).to receive(:find).with(id).and_raise ActiveRecord::RecordNotFound
+          expect(Month).to receive(:find).with(id).and_raise Mongoid::Errors::DocumentNotFound.new(Month, 'Not found')
 
           put :update, month: month_params, id: id
         end
@@ -370,7 +370,7 @@ RSpec.describe MonthsController, :type => :controller do
         context 'month is not found' do
           
           it 'redirects to index action' do
-            allow(Month).to receive(:find).with(id).and_raise ActiveRecord::RecordNotFound
+            allow(Month).to receive(:find).with(id).and_raise Mongoid::Errors::DocumentNotFound.new(Month, 'Not found')
 
             put :update, month: month_params, id: id
 
@@ -472,7 +472,7 @@ RSpec.describe MonthsController, :type => :controller do
         context 'month not found' do
 
           it 'redirects to index action' do
-            allow(Month).to receive(:find).with(id).and_raise ActiveRecord::RecordNotFound
+            allow(Month).to receive(:find).with(id).and_raise Mongoid::Errors::DocumentNotFound.new(Month, 'Not found')
 
             delete :destroy, id: id
 

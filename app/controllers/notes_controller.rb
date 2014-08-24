@@ -3,7 +3,7 @@ class NotesController < ApplicationController
   load_and_authorize_resource :month
   load_and_authorize_resource :note, :through => :month
 
-  rescue_from ActiveRecord::RecordNotFound do |exception|
+  rescue_from Mongoid::Errors::DocumentNotFound do |exception|
     redirect_to months_url, :alert => 'Record not found!'
   end
   

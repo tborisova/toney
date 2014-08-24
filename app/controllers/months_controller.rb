@@ -1,9 +1,10 @@
 class MonthsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!  
   load_and_authorize_resource
 
-  rescue_from ActiveRecord::RecordNotFound do |exception|
-    redirect_to months_url, :alert => 'Month not found!'
+  rescue_from Mongoid::Errors::DocumentNotFound do |exception|
+    flash[:alert] = 'Month not found!'
+    redirect_to months_url
   end
 
   def index
